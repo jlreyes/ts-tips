@@ -5,13 +5,15 @@ on:
     - cron: "0 13 * * 1" # every Monday at 13:00 UTC
   workflow_dispatch: {}
 
-permissions:
-  contents: read
-  issues: write
-
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    outputs:
+      drift: ${{ steps.check.outputs.drift }}
+      summary: ${{ steps.check.outputs.summary }}
     steps:
       - uses: actions/checkout@v4
 
@@ -35,11 +37,14 @@ jobs:
           ${SUMMARY}
 
           This only diffs version numbers against \`.github/tracked-versions.json\`
-          — it does not re-research or edit any skill content, and it does not
-          commit anything itself. To resolve: update the relevant reference
-          file(s) under \`skills/*/references/\`, re-verify the claims that
-          depend on the changed version, update \`.github/tracked-versions.json\`
-          to the new values in the same commit/PR, then close this issue.
+          — it does not by itself edit any content. If an \`ANTHROPIC_API_KEY\`
+          repo secret is configured, a draft PR re-researching and updating the
+          affected content should follow shortly (the \`propose-update\` job in
+          the same workflow run) — review it before merging. If no such PR
+          shows up, that secret isn't set; resolve manually instead: update the
+          relevant reference file(s) under \`skills/*/references/\`, the
+          at-a-glance table(s) in the matching \`SKILL.md\`, and
+          \`tracked-versions.json\`, in the same commit/PR.
 
           _Opened automatically by \`.github/workflows/check-upstream.yml\`._"
 
@@ -51,3 +56,71 @@ jobs:
           else
             gh issue create --title "$TITLE" --body "$BODY"
           fi
+
+  propose-update:
+    needs: check
+    if: needs.check.outputs.drift == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+    env:
+      # Job-level if: can't reference `secrets` directly (GitHub Actions
+      # rejects it: "Unrecognized named-value: 'secrets'" — actions/runner#520).
+      # Piping through env: and checking that per-step is the documented
+      # workaround.
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - name: Skip notice if no API key configured
+        if: env.ANTHROPIC_API_KEY == ''
+        run: echo "No ANTHROPIC_API_KEY secret configured — skipping automated update proposal. The tracking issue from the check job still has the manual-resolution steps. See README.md 'Staying current' to enable this job."
+
+      - uses: actions/checkout@v4
+        if: env.ANTHROPIC_API_KEY != ''
+
+      # Tier 2: re-research the changed item(s) against official sources and
+      # propose a content update as a PR. Requires the ANTHROPIC_API_KEY repo
+      # secret (set via `gh secret set`, never pasted through an agent
+      # session — see README.md "Staying current"). Scaffolded 2026-06-30
+      # against anthropics/claude-code-action's documented automation mode;
+      # not yet exercised by a real run — treat the first actual trigger as
+      # the real test of this job, and tighten claude_args/prompt from there.
+      - uses: anthropics/claude-code-action@v1
+        if: env.ANTHROPIC_API_KEY != ''
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: |
+            --allowedTools Read,Edit,WebFetch,WebSearch
+            --max-turns 30
+          prompt: |
+            The following upstream versions changed, detected by a diff
+            against .github/tracked-versions.json:
+
+            ${{ needs.check.outputs.summary }}
+
+            Re-research each changed item against official sources (TypeScript
+            release notes at typescriptlang.org and devblogs.microsoft.com,
+            Node.js docs/changelogs at nodejs.org, the relevant GitHub repos)
+            — do not assume what changed, verify it. Do not rely on memory for
+            version numbers or stability status.
+
+            Then update, in the SAME PR:
+            1. The relevant reference file(s) under skills/*/references/ —
+               follow the existing per-feature template in that file exactly
+               (Lands/Status line, what-it-is, Replaces, tiny example, Note,
+               and the file's closing summary table + Sources list).
+            2. The matching skill's SKILL.md "At a glance" table — every
+               feature in the references has a row there too; keep it that
+               way, don't let it drift out of sync.
+            3. .github/tracked-versions.json — update the changed value(s) to
+               match what you just verified.
+
+            If a change is genuinely new content (not just a version bump on
+            an existing entry — e.g. a brand-new feature, not just "RC became
+            GA"), add a new entry following the same template rather than
+            skipping it.
+
+            Keep the tone and density consistent with the existing files:
+            terse, source-verified, "index not tutorial." Cite the source
+            URL(s) you verified each change against in the PR description.

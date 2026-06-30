@@ -59,13 +59,32 @@ A scheduled GitHub Action (`.github/workflows/check-upstream.yml`, weekly)
 diffs `typescript`/`@typescript/native-preview`/`oxlint`/`oxfmt` npm
 dist-tags and the latest Node release against
 `.github/tracked-versions.json`, and opens or updates a tracking issue when
-something changed. It's deliberately dumb — no LLM calls, no secrets, no
-auto-commits — it only tells you *that* something shipped, not *what* to do
-about it. Resolving the issue (re-research the changed item, update the
-reference file, bump `tracked-versions.json`) is still a manual or
-agent-assisted step. An LLM-driven version that drafts the update itself as
-a PR is a natural next step, but needs an API key and a deliberate decision
-to let an unattended agent edit this repo's content — not wired up yet.
+something changed (job: `check`). That part is deliberately dumb — no LLM
+calls, no secrets, no auto-commits — it only tells you *that* something
+shipped.
+
+A second job (`propose-update`) runs only when drift is detected **and** an
+`ANTHROPIC_API_KEY` repo secret is configured: it invokes
+[`anthropics/claude-code-action`](https://github.com/anthropics/claude-code-action)
+headlessly to re-research the changed item(s) against official sources and
+open a draft PR updating the affected reference file, the matching
+`SKILL.md` at-a-glance table, and `tracked-versions.json` together — review
+before merging, same as any other PR. Without the secret, only the tracking
+issue fires and resolving it stays manual.
+
+**Setting the secret:** run this yourself, in your own terminal — not
+through an agent session, so the key value never passes through anyone's
+context or transcript:
+
+```bash
+gh secret set ANTHROPIC_API_KEY --repo jlreyes/ts-tips
+# pastes/prompts for the value interactively; nothing is echoed
+```
+
+This is standard CI-secret hygiene regardless of any agent-visibility
+policy you run elsewhere — `gh secret set` with no `--body` flag reads
+from a hidden prompt and the value is never visible to anything running
+inside the workflow's logs (GitHub masks it automatically).
 
 ## Install
 

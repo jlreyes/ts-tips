@@ -1,0 +1,12 @@
+{
+  "name": "jlreyes",
+  "owner": { "name": "James Reyes" },
+  "description": "Personal TypeScript/Node.js development plugins for Claude Code.",
+  "plugins": [
+    {
+      "name": "ts-tips",
+      "source": { "source": "github", "repo": "jlreyes/ts-tips" },
+      "description": "What's-new recency index for TypeScript, the tsgo/TypeScript 7 native compiler, Node.js, and the oxc toolchain."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+name: Check upstream versions
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # every Monday at 13:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "26"
+
+      - name: Check tracked versions against npm/Node upstream
+        id: check
+        run: node .github/scripts/check-versions.mjs
+
+      - name: Open or update tracking issue
+        if: steps.check.outputs.drift == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUMMARY: ${{ steps.check.outputs.summary }}
+        run: |
+          TITLE="Upstream versions changed"
+          BODY="New upstream versions detected by the scheduled check:
+
+          ${SUMMARY}
+
+          This only diffs version numbers against \`.github/tracked-versions.json\`
+          — it does not re-research or edit any skill content, and it does not
+          commit anything itself. To resolve: update the relevant reference
+          file(s) under \`skills/*/references/\`, re-verify the claims that
+          depend on the changed version, update \`.github/tracked-versions.json\`
+          to the new values in the same commit/PR, then close this issue.
+
+          _Opened automatically by \`.github/workflows/check-upstream.yml\`._"
+
+          EXISTING=$(gh issue list --state open --json number,title \
+            --jq ".[] | select(.title == \"${TITLE}\") | .number" | head -1)
+
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "$BODY"
+          else
+            gh issue create --title "$TITLE" --body "$BODY"
+          fi

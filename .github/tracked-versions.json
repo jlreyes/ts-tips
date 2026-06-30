@@ -1,0 +1,8 @@
+{
+  "typescript_latest": "6.0.3",
+  "typescript_rc": "7.0.1-rc",
+  "typescript_native_preview_latest": "7.0.0-dev.20260630.1",
+  "node_latest": "26.4.0",
+  "oxlint_latest": "1.72.0",
+  "oxfmt_latest": "0.57.0"
+}

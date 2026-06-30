@@ -27,8 +27,15 @@ is) public.
     empirically-confirmed gotcha where `Temporal` is silently absent on some
     Node 26 builds depending on the Rust toolchain available at build time.
 
-  More skills (e.g. an `oxc-whats-new` covering oxlint/oxfmt) may land here
-  over time, following the same template.
+- **`oxc-whats-new`** — recency index for oxlint/oxfmt (the Rust-based
+  ESLint+Prettier successor), which ships jointly, weekly. Headline facts:
+  oxlint is 1.0-stable with 838 rules and ~97% type-aware-linting parity with
+  `typescript-eslint` via a new `tsgolint` engine; oxfmt is still beta and
+  ships breaking changes between releases; Cloudflare acquired oxc's backer
+  VoidZero on 2026-06-04 (MIT license and vendor-neutrality pledged, but
+  worth knowing).
+
+More skills may land here over time, following the same template.
 
 ## How this was built
 
@@ -45,6 +52,20 @@ This index will go stale — that's the nature of the subject matter. Treat
 the "Sources" section at the bottom of each reference file as the
 re-verification starting point, and treat `tsgo-native-compiler.md`
 specifically as likely outdated within weeks, not months.
+
+### Staying current
+
+A scheduled GitHub Action (`.github/workflows/check-upstream.yml`, weekly)
+diffs `typescript`/`@typescript/native-preview`/`oxlint`/`oxfmt` npm
+dist-tags and the latest Node release against
+`.github/tracked-versions.json`, and opens or updates a tracking issue when
+something changed. It's deliberately dumb — no LLM calls, no secrets, no
+auto-commits — it only tells you *that* something shipped, not *what* to do
+about it. Resolving the issue (re-research the changed item, update the
+reference file, bump `tracked-versions.json`) is still a manual or
+agent-assisted step. An LLM-driven version that drafts the update itself as
+a PR is a natural next step, but needs an API key and a deliberate decision
+to let an unattended agent edit this repo's content — not wired up yet.
 
 ## Install
 

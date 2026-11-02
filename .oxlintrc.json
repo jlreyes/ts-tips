@@ -1,0 +1,7 @@
+{
+  "extends": ["./packages/typescript-standards/oxlint.json"],
+  "env": {
+    "node": true,
+    "es2024": true
+  }
+}

@@ -1,0 +1,27 @@
+name: Shared TypeScript standards
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    strategy:
+      matrix:
+        node: [24, 26]
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Use a fresh npm cache
+        run: echo "NPM_CONFIG_CACHE=$RUNNER_TEMP/standards-npm-cache" >> "$GITHUB_ENV"
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test

@@ -1,0 +1,66 @@
+{
+  "plugins": ["unicorn", "typescript"],
+  "rules": {
+    "complexity": [
+      "error",
+      {
+        "max": 12,
+        "variant": "modified"
+      }
+    ],
+    "max-classes-per-file": ["error", 3],
+    "max-depth": ["error", 4],
+    "max-lines": [
+      "error",
+      {
+        "max": 1000,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
+    ],
+    "max-lines-per-function": [
+      "error",
+      {
+        "max": 100,
+        "skipBlankLines": true,
+        "skipComments": true,
+        "IIFEs": true
+      }
+    ],
+    "max-params": ["error", 6],
+    "max-statements": ["error", 40],
+    "no-warning-comments": [
+      "error",
+      {
+        "terms": ["FIXME", "HACK", "XXX"],
+        "location": "anywhere"
+      }
+    ],
+    "unicorn/no-abusive-eslint-disable": "error",
+    "no-undef": "error",
+    "typescript/no-explicit-any": [
+      "error",
+      {
+        "fixToUnknown": false,
+        "ignoreRestArgs": false
+      }
+    ],
+    "typescript/ban-ts-comment": [
+      "error",
+      {
+        "ts-check": false,
+        "ts-expect-error": true,
+        "ts-ignore": true,
+        "ts-nocheck": true
+      }
+    ],
+    "typescript/consistent-type-imports": [
+      "error",
+      {
+        "disallowTypeAnnotations": true,
+        "fixStyle": "separate-type-imports",
+        "prefer": "type-imports"
+      }
+    ]
+  }
+}

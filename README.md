@@ -9,6 +9,17 @@ Unlike `swift-tips`, nothing here is vendored copyrighted content — it's
 original synthesis from public official sources, so this repo can be (and
 is) public.
 
+## Shared quality package (proposal)
+
+[`@jlreyes/typescript-standards`](packages/typescript-standards/README.md) is an
+optional npm package of shared Oxlint, Oxfmt and TypeScript presets, separate
+from the recency skills below. It is not published yet. Both public and private
+repositories can consume the planned public package with local overrides.
+No existing repository or agent installation is migrated by this proposal.
+
+See the package README for exact usage, overrides, promotion/release flow and
+limits, and [`examples/node`](examples/node) for a complete consumer.
+
 ## Skills
 
 - **`ts-whats-new`** — recency index for TypeScript and Node.js: what

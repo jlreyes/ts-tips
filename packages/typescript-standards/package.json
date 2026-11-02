@@ -14,12 +14,16 @@
     "tsconfig.strict.json",
     "tsconfig.node.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "oxfmt.d.mts"
   ],
   "type": "module",
   "exports": {
     "./oxlint.json": "./oxlint.json",
-    "./oxfmt": "./oxfmt.mjs",
+    "./oxfmt": {
+      "types": "./oxfmt.d.mts",
+      "default": "./oxfmt.mjs"
+    },
     "./tsconfig.strict.json": "./tsconfig.strict.json",
     "./tsconfig.node.json": "./tsconfig.node.json",
     "./package.json": "./package.json"

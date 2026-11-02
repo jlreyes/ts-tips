@@ -36,3 +36,7 @@ without recursively reinstalling the repository inside each test invocation.
   selection now uses runtime `RUNNER_TEMP` and `GITHUB_ENV` before install.
   `actionlint .github/workflows/standards.yml` validates context availability; the
   actual matrix run validates execution. No behavior assertion was weakened.
+
+The first real TypeScript consumer imports formatter defaults from its own
+`.mts` wrapper. Its exported types must resolve under strict NodeNext settings;
+the tarball test checks a valid typed import and rejects a mismatched assignment.

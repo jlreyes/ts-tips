@@ -78,6 +78,9 @@ export default {
 };
 ```
 
+The formatter export includes TypeScript declarations, so an `.mts` wrapper can
+import it under strict NodeNext settings too.
+
 Oxfmt has no JSON `extends`. The JavaScript wrapper composes the shared object.
 Pass it explicitly: `oxfmt --check --config oxfmt.config.mjs src`. This avoids
 relying on automatic discovery of `.mjs` configs in a particular Oxfmt version.

@@ -77,6 +77,7 @@ const cases = [
           "LICENSE",
           "README.md",
           "oxfmt.mjs",
+          "oxfmt.d.mts",
           "oxlint.json",
           "package.json",
           "tsconfig.node.json",
@@ -136,6 +137,26 @@ const cases = [
       writeFileSync(source, 'export const heading = document.createElement("h1");\n');
       succeeds(compile());
       writeFileSync(typeFile, originalTypes);
+    },
+  ],
+  [
+    "formatter defaults have a strict TypeScript import contract",
+    ({ consumer, source, compile }) => {
+      writeFileSync(source, clean);
+      const config = path.join(consumer, "src/formatter.ts");
+      writeFileSync(
+        config,
+        'import defaults from "@jlreyes/typescript-standards/oxfmt";\n' +
+          "export const width: number = defaults.printWidth;\n",
+      );
+      succeeds(compile());
+      writeFileSync(
+        config,
+        'import defaults from "@jlreyes/typescript-standards/oxfmt";\n' +
+          "export const width: string = defaults.printWidth;\n",
+      );
+      rejects(compile(), /TS2322/);
+      rmSync(config);
     },
   ],
   [

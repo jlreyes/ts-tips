@@ -31,3 +31,8 @@ Review findings and pinning evidence:
 CI starts each matrix job with a fresh runner-temporary npm cache, then runs
 `npm ci`, checks and consumer tests. This permanently pins the cold-cache setup
 without recursively reinstalling the repository inside each test invocation.
+
+- GitHub rejected runner context at job-level env before running any tests. Cache
+  selection now uses runtime `RUNNER_TEMP` and `GITHUB_ENV` before install.
+  `actionlint .github/workflows/standards.yml` validates context availability; the
+  actual matrix run validates execution. No behavior assertion was weakened.

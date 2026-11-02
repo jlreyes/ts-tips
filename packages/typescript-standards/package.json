@@ -1,0 +1,38 @@
+{
+  "name": "@jlreyes/typescript-standards",
+  "version": "0.1.0",
+  "description": "Shared TypeScript, Oxlint and Oxfmt standards with repository-owned overrides",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlreyes/ts-tips.git",
+    "directory": "packages/typescript-standards"
+  },
+  "files": [
+    "oxlint.json",
+    "oxfmt.mjs",
+    "tsconfig.strict.json",
+    "tsconfig.node.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "exports": {
+    "./oxlint.json": "./oxlint.json",
+    "./oxfmt": "./oxfmt.mjs",
+    "./tsconfig.strict.json": "./tsconfig.strict.json",
+    "./tsconfig.node.json": "./tsconfig.node.json",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "oxfmt": "0.56.0",
+    "oxlint": "1.71.0",
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=24 <25 || >=26 <27"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ts-tips-development",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "oxlint --deny-warnings tests packages/typescript-standards/oxfmt.mjs oxfmt.config.mjs && oxfmt --check --config oxfmt.config.mjs package.json .oxlintrc.json oxfmt.config.mjs packages tests examples .github/workflows/standards.yml",
+    "format": "oxfmt --write --config oxfmt.config.mjs package.json .oxlintrc.json oxfmt.config.mjs packages tests examples .github/workflows/standards.yml"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "oxfmt": "0.56.0",
+    "oxlint": "1.71.0",
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=24 <25 || >=26 <27"
+  }
+}

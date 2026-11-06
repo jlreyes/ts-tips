@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    quality:
+      run: node .quality/pre-commit.ts
+pre-push:
+  commands:
+    quality:
+      run: npm run quality:check

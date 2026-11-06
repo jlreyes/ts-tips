@@ -49,6 +49,9 @@ contract. Do not repeat syntax that clear names and structure already express.
 
 ## References
 
+- `backend-organization.md` — capability ownership, named operations, transport
+  and runtime boundaries, schema placement, and source-backed examples. Read
+  when organizing or extending a backend.
 - `type-integrity.md` — canonical types, trust boundaries,
   parse-don't-validate, and branded IDs. Read when modeling types or handling
   external input.

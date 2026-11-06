@@ -22,6 +22,13 @@ limits, and [`examples/node`](examples/node) for a complete consumer.
 
 ## Skills
 
+- **`typescript-defaults`** — fallback coding standards, backend organization
+  guidance grounded in source examples, and an optional quality bootstrap for
+  repositories without local policy. Existing repository policy takes
+  precedence. The bootstrap only plans changes unless explicitly applied;
+  this skill remains separate from the recency indexes below and the shared
+  quality package above.
+
 - **`ts-whats-new`** — recency index for TypeScript and Node.js: what
   shipped that postdates most coding-model training data, with version
   numbers and stable-vs-preview status verified against official sources

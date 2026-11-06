@@ -1,6 +1,6 @@
 ---
 name: typescript-defaults
-description: James's fallback TypeScript standards and executable quality setup. Use for TypeScript work when a repository has no local coding standards, lint, formatting, or type-checking policy; existing repository policy takes precedence.
+description: James's fallback TypeScript standards, backend organization principles, and executable quality setup. Use for TypeScript work when a repository has no local coding standards, lint, formatting, or type-checking policy; existing repository policy takes precedence.
 ---
 
 # TypeScript defaults
@@ -12,6 +12,10 @@ an established toolchain automatically; report a material gap in that policy.
 Without local standards, use the judgment in
 [TypeScript principles](references/principles.md) and the relevant linked
 reference. These defaults do not waive independent implementation review.
+
+When deciding where backend code goes or what to name it, read
+[Backend organization](references/backend-organization.md). It gives four
+principles and shows each one in a production codebase's real file tree.
 
 The bundled preset supplies the executable checks used in personal-agent-tools:
 strict TypeScript; Oxlint and Oxfmt; file/function/complexity limits; suppression

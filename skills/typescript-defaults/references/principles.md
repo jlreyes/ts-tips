@@ -49,6 +49,10 @@ contract. Do not repeat syntax that clear names and structure already express.
 
 ## References
 
+- `backend-organization.md` — four principles for where backend code goes
+  and what to call it, each shown in a production codebase's file tree, plus
+  where those codebases strained. Read when adding a capability or deciding
+  where a file belongs.
 - `type-integrity.md` — canonical types, trust boundaries,
   parse-don't-validate, and branded IDs. Read when modeling types or handling
   external input.

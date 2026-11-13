@@ -76,14 +76,14 @@ the one implementation.
 **"Schema" means three different things.** A table definition says what is
 stored. A contract says what crosses between two sides: a request, a
 response, a message, a job's payload. Working types say what code holds in
-memory. The table belongs to the capability that owns the store, with one
-migration history beside it. The contract belongs where both sides can read
-it, written once, in a file named for what it describes. When one side is not
-TypeScript, the contract is in a neutral format, or the other side's types
-are generated from the one definition. These codebases write the table and
-the contract by hand and keep them apart even when they look the same,
-because the two change for different reasons. Code derived from either is
-generated, never edited by hand, and marked as generated. A folder named
+memory. The table belongs to whichever part of the system owns the store,
+with one migration history beside it. The contract belongs where both sides
+can read it, written once, in a file named for what it describes. When one
+side is not TypeScript, the contract is in a neutral format, or the other
+side's types are generated from the one definition. These codebases write the
+table and the contract by hand and keep them apart even when they look the
+same, because the two change for different reasons. Code derived from either
+is generated, never edited by hand, and marked as generated. A folder named
 `generated` is a mark that a reader and every tool can see without opening a
 file.
 

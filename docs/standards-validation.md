@@ -40,3 +40,10 @@ without recursively reinstalling the repository inside each test invocation.
 The first real TypeScript consumer imports formatter defaults from its own
 `.mts` wrapper. Its exported types must resolve under strict NodeNext settings;
 the tarball test checks a valid typed import and rejects a mismatched assignment.
+
+Tool upgrade to TypeScript 7.0.2, Oxlint 1.93.0 and Oxfmt 0.78.0 (package 0.2.0):
+no preset file changed. Oxlint now counts a rest parameter toward `max-params`; the
+consumer test pins both sides of that limit. The tests cover five of the thirteen
+lint rules, indexed-access checking and one formatted line. The remaining rules and
+options were compared with the previous pins once, by hand, for this upgrade; no
+test repeats that comparison.

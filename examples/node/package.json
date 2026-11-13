@@ -9,10 +9,10 @@
     "check": "npm run lint && npm run format:check && npm run typecheck"
   },
   "devDependencies": {
-    "@jlreyes/typescript-standards": "0.1.0",
+    "@jlreyes/typescript-standards": "0.2.0",
     "@types/node": "24.13.3",
-    "oxfmt": "0.56.0",
-    "oxlint": "1.71.0",
-    "typescript": "6.0.3"
+    "oxfmt": "0.78.0",
+    "oxlint": "1.93.0",
+    "typescript": "7.0.2"
   }
 }

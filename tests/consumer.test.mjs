@@ -94,6 +94,8 @@ const cases = [
       rejects(lint(), /max-params/);
       writeFileSync(source, "export function rest(a, b, c, d, e, f, ...g) { return g; }\n");
       rejects(lint(), /max-params/);
+      writeFileSync(source, "export function rest(a, b, c, d, e, ...f) { return f; }\n");
+      succeeds(lint());
       writeFileSync(source, "export const value: any = 1;\n");
       rejects(lint(), /no-explicit-any/);
       writeFileSync(source, "// @ts-ignore\nexport const value = 1;\n");

@@ -42,8 +42,8 @@ The first real TypeScript consumer imports formatter defaults from its own
 the tarball test checks a valid typed import and rejects a mismatched assignment.
 
 Tool upgrade to TypeScript 7.0.2, Oxlint 1.93.0 and Oxfmt 0.78.0 (package 0.2.0):
-each rule in `oxlint.json`, each compiler option and each formatter option was run
-against the previous pins (6.0.3, 1.71.0, 0.56.0) on boundary inputs. Results matched
-except two Oxlint changes. A rest parameter now counts toward `max-params`; the
-consumer test pins that. `max-classes-per-file` now reports at the top of the file,
-so a next-line suppression has to sit there. No preset file changed.
+no preset file changed. Oxlint now counts a rest parameter toward `max-params`; the
+consumer test pins both sides of that limit. The tests cover five of the thirteen
+lint rules, indexed-access checking and one formatted line. The remaining rules and
+options were compared with the previous pins once, by hand, for this upgrade; no
+test repeats that comparison.

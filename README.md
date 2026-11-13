@@ -9,18 +9,21 @@ Unlike `swift-tips`, nothing here is vendored copyrighted content — it's
 original synthesis from public official sources, so this repo can be (and
 is) public.
 
-## Shared quality package (proposal)
+## Shared quality presets
 
-[`@jlreyes/typescript-standards`](packages/typescript-standards/README.md) is an
-optional npm package of shared Oxlint, Oxfmt and TypeScript presets, separate
-from the recency skills below. It is not published yet. Both public and private
-repositories can consume the planned public package with local overrides.
-No existing repository or agent installation is migrated by this proposal.
+[`@jlreyes/typescript-standards`](packages/typescript-standards/README.md)
+supplies the Oxlint, Oxfmt, and compiler settings a project's checks can use.
+Projects install it independently of the Claude plugin. Current consumers pin
+a Git commit. Each project supplies its own build settings, paths, and exceptions.
 
-See the package README for exact usage, overrides, promotion/release flow and
-limits, and [`examples/node`](examples/node) for a complete consumer.
+See [the package README](packages/typescript-standards/README.md) and
+[`examples/node`](examples/node) for setup and overrides.
 
 ## Skills
+
+- **`ts-standards`** — coding guidance for modeling types, owning state,
+  handling async work, and releasing resources. Each project keeps its own
+  import conventions, runtime settings, and other local requirements.
 
 - **`ts-whats-new`** — recency index for TypeScript and Node.js: what
   shipped that postdates most coding-model training data, with version
@@ -111,10 +114,10 @@ inside the workflow's logs (GitHub masks it automatically).
 - **Dev:** `claude --plugin-dir ~/repos/ts-tips` (hot-reload edits with `/reload-plugins`).
 - **Permanent (every TS/Node repo):** `/plugin marketplace add jlreyes/ts-tips` → `/plugin install ts-tips@jlreyes`, enabled at **user scope** so every repo you open inherits it.
 
-If a project has its own house coding-standards skill (canonical types, DI,
-lint/tsconfig conventions, etc.), that skill stays authoritative for
-doctrine — `ts-whats-new` only answers "does this exist yet, and is it safe
-to use here." It's deliberately silent on style/architecture opinions.
+Claude Code discovers these skills through the plugin. Codex can load the same
+skill folders from this repository through its Skills CLI installation. Install
+them with `npx skills add jlreyes/ts-tips --agent codex`, then select the skills
+you want.
 
 ### Improving auto-trigger reliability
 

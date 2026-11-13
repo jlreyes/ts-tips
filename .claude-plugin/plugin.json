@@ -1,7 +1,21 @@
 {
   "name": "ts-tips",
-  "description": "Recency index for TypeScript and Node.js: what shipped that postdates most coding-model training data, verified against official sources rather than memory. Covers TS 4.9 through 6.0.3 (satisfies, using/await using, decorators, isolatedDeclarations) and the tsgo/TypeScript 7 native compiler, Node 20 through 26 runtime features, and the oxc toolchain (oxlint/oxfmt). Also includes principles for organizing TypeScript projects, shown in production codebases.",
-  "author": { "name": "James Reyes" },
+  "description": "James's TypeScript and Node.js skills for coding standards, project organization, and TypeScript, Node.js, Oxlint, and Oxfmt updates.",
+  "author": {
+    "name": "James Reyes"
+  },
   "license": "MIT",
-  "keywords": ["typescript", "nodejs", "node", "tsgo", "typescript-7", "oxlint", "oxfmt", "oxc", "whats-new", "project-structure"]
+  "keywords": [
+    "typescript",
+    "nodejs",
+    "node",
+    "tsgo",
+    "typescript-7",
+    "oxlint",
+    "oxfmt",
+    "oxc",
+    "whats-new",
+    "project-structure",
+    "typescript-standards"
+  ]
 }

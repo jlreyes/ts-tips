@@ -46,7 +46,16 @@ limits, and [`examples/node`](examples/node) for a complete consumer.
   VoidZero on 2026-06-04 (MIT license and vendor-neutrality pledged, but
   worth knowing).
 
-More skills may land here over time, following the same template.
+- **`ts-project-organization`** — where TypeScript code goes and what to call
+  it. Seven principles, shown in the real file trees of eight production
+  codebases (Outline, Langfuse, opencode, Playwright, tldraw, Dub, atproto,
+  Trigger.dev), with what each approach cost those codebases. Covers the top
+  of a repository, client/server/shared splits, entry points, contracts,
+  generated code and import boundaries. Unlike the recency skills, this one
+  teaches judgment, so a repository's existing layout takes precedence over
+  it.
+
+More skills may land here over time.
 
 ## How this was built
 

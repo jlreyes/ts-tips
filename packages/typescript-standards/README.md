@@ -5,7 +5,7 @@ repository overrides. Intended for **public npm distribution**, usable from both
 public and private repositories. Package visibility does not change consumer
 visibility. Keep private application details and exceptions in the consumer.
 
-**Status: proposed 0.1.0, not published.** The npm scope/name has not been reserved
+**Status: proposed 0.2.0, not published.** The npm scope/name has not been reserved
 or verified for publishing. This PR creates the package and tests its tarball;
 it does not publish it, migrate a repo, or change either machine's agent setup.
 
@@ -19,8 +19,9 @@ it does not publish it, migrate a repo, or change either machine's agent setup.
 | `tsconfig.node.json`   | Strict preset plus ES2024, NodeNext, Node types and no emit                                          | Source selection, Node types dependency, project-specific options |
 
 Lint limits: modified complexity 12; nesting 4; 3 classes/file; 1,000 lines/file;
-100 lines/function; 6 parameters; 40 statements/function. Blank/comment lines
-are excluded from line limits. These detect size, not architectural quality.
+100 lines/function; 6 parameters, counting a rest parameter; 40 statements/function.
+Blank/comment lines are excluded from line limits. These detect size, not
+architectural quality.
 
 Compiler presets intentionally contain no `include`, `exclude`, `files`, `paths`,
 `rootDir` or `outDir`; those paths must resolve in the consuming repository.
@@ -34,13 +35,17 @@ then retain their scaffold's module resolution, JSX, libraries and emit policy.
 Install exact versions with your package manager and commit its lockfile:
 
 ```sh
-npm install --save-dev --save-exact @jlreyes/typescript-standards@0.1.0 \
-  typescript@6.0.3 oxlint@1.71.0 oxfmt@0.56.0 @types/node@24.13.3
+npm install --save-dev --save-exact @jlreyes/typescript-standards@0.2.0 \
+  typescript@7.0.2 oxlint@1.93.0 oxfmt@0.78.0 @types/node@24.13.3
 ```
 
 Those are the tested peer versions, not a promise that every future tool release
 is compatible. The consumer installs the binaries; the preset does not silently
 select a different toolchain. Tool version updates need validation here first.
+
+TypeScript 7 is the native compiler. Its `typescript` package provides `tsc` but
+no JavaScript API and no `tsserver`. A tool that imports `typescript` needs
+TypeScript 6 installed for it separately, for example as `@typescript/typescript6`.
 
 `.oxlintrc.json`:
 

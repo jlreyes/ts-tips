@@ -92,6 +92,8 @@ const cases = [
     ({ source, lint }) => {
       writeFileSync(source, "export function tooMany(a, b, c, d, e, f, g) { return g; }\n");
       rejects(lint(), /max-params/);
+      writeFileSync(source, "export function rest(a, b, c, d, e, f, ...g) { return g; }\n");
+      rejects(lint(), /max-params/);
       writeFileSync(source, "export const value: any = 1;\n");
       rejects(lint(), /no-explicit-any/);
       writeFileSync(source, "// @ts-ignore\nexport const value = 1;\n");
@@ -207,7 +209,7 @@ const cases = [
       const changed = path.join(temporary, "changed-package");
       cpSync(packageSource, changed, { recursive: true });
       const manifest = JSON.parse(readFileSync(path.join(changed, "package.json"), "utf8"));
-      manifest.version = "0.1.1";
+      manifest.version = "0.2.1";
       json(path.join(changed, "package.json"), manifest);
       const rules = JSON.parse(readFileSync(path.join(changed, "oxlint.json"), "utf8"));
       rules.rules["max-params"] = ["error", 7];
